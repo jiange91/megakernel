@@ -20,10 +20,17 @@ if [ -z "$CMAKE_ARGS" ]; then
               -DLLVM_ENABLE_ASSERTIONS=ON
               -DCMAKE_C_COMPILER=clang
               -DCMAKE_CXX_COMPILER=clang++
-              -DLLVM_ENABLE_LLD=ON
+              -DCMAKE_CXX_FLAGS="-v"
+              -DLLVM_ENABLE_LLD=OFF
+              -DCMAKE_LINKER=/usr/bin/ld.lld
+              -DCMAKE_EXE_LINKER_FLAGS="-fuse-ld=lld"
+              -DCMAKE_SHARED_LINKER_FLAGS="-fuse-ld=lld"
+              -DCMAKE_MODULE_LINKER_FLAGS="-fuse-ld=lld"
               -DLLVM_OPTIMIZED_TABLEGEN=ON
               -DMLIR_ENABLE_BINDINGS_PYTHON=OFF
               -DLLVM_TARGETS_TO_BUILD="$LLVM_TARGETS"
+              -DCMAKE_BUILD_WITH_INSTALL_RPATH=ON
+              -DMLIR_BUILD_PYTHON_BINDINGS_TESTS=OFF
               -DCMAKE_EXPORT_COMPILE_COMMANDS=1
               -DLLVM_ENABLE_PROJECTS="$LLVM_PROJECTS"
               -DCMAKE_INSTALL_PREFIX="$LLVM_INSTALL_PATH"
